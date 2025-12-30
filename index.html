@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pranjal Sahu — Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#061023;
+  --card:#0b1220;
+  --accent:#c9f503;
+  --muted:#9aa4b2;
+  font-family:Inter,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#020617,#061023);color:#e6eef6}
+.wrap{max-width:1000px;margin:40px auto;padding:20px}
+header{display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;gap:12px;align-items:center}
+.avatar{width:64px;height:64px;border-radius:12px;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none;font-weight:600}
+nav a:hover{color:var(--accent)}
+.hero{margin-top:30px;display:grid;gap:20px}
+@media(min-width:860px){.hero{grid-template-columns:1fr 360px}}
+.card{background:rgba(255,255,255,.03);padding:18px;border-radius:14px}
+.btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.1);color:#fff;text-decoration:none}
+.btn.primary{background:linear-gradient(90deg,var(--accent),#a78bfa);color:#001;border:0}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:14px}
+.skill{background:rgba(255,255,255,.05);padding:6px 10px;border-radius:999px;font-size:.85rem}
+footer{margin-top:40px;color:var(--muted);display:flex;justify-content:space-between}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<header>
+  <div class="brand">
+    <div class="avatar">
+      <img src="images/profile.jpg" alt="Pranjal Sahu">
+    </div>
+    <div>
+      <strong>Pranjal Sahu</strong>
+      <div class="muted">BBA • Video Editing • Communication</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#projects">Projects</a>
+    <a href="#hire">Hire</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="card">
+    <h1>Hi, I’m Pranjal 👋</h1>
+    <p class="muted">I create clean edits, short-form content and simple websites.</p>
+
+    <div style="margin-top:12px">
+      <a class="btn primary" href="#hire">Hire / Collab</a>
+      <a class="btn" href="resume.pdf" download>Download CV</a>
+    </div>
+
+    <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+      <span class="skill">DaVinci Resolve</span>
+      <span class="skill">Premiere Pro</span>
+      <span class="skill">After Effects</span>
+      <span class="skill">HTML / CSS</span>
+    </div>
+  </div>
+
+  <aside class="card">
+    <h3>Contact</h3>
+    <p class="muted">📧 pranjalsahu1782@gmail.com</p>
+    <p class="muted">💬 Discord: cre8ive.pranjal</p>
+  </aside>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="margin-top:40px">
+  <h2>Featured Projects</h2>
+  <div class="grid" id="projectsContainer">
+    <!-- Projects auto-load here -->
+  </div>
+</section>
+
+<!-- HIRE -->
+<section id="hire" style="margin-top:40px">
+  <div class="card">
+    <h2>Hire / Collab</h2>
+    <p class="muted">Short-form edits, gaming montages, cinematic cuts.</p>
+
+    <form action="mailto:pranjalsahu1782@gmail.com" method="post" enctype="text/plain">
+      <input placeholder="Your Name" required><br><br>
+      <input type="email" placeholder="Email" required><br><br>
+      <textarea rows="4" placeholder="Project details" required></textarea><br><br>
+      <button class="btn primary">Send</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div>© <span id="yr"></span> Pranjal Sahu</div>
+  <div>Simple • Fast • Secure</div>
+</footer>
+
+</div>
+
+<script>
+document.getElementById("yr").textContent=new Date().getFullYear();
+
+fetch("projects.json")
+.then(res=>res.json())
+.then(data=>{
+  const box=document.getElementById("projectsContainer");
+  data.forEach(p=>{
+    box.innerHTML+=`
+      <div class="card">
+        <img src="${p.thumbnail}" style="width:100%;border-radius:10px">
+        <h3>${p.title}</h3>
+        <p class="muted">${p.description}</p>
+        <a class="btn" href="${p.link}" target="_blank">View</a>
+      </div>`;
+  });
+});
+</script>
+
+</body>
+</html>
